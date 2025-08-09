@@ -5,3 +5,7 @@ i dont want to use import {faker} from "@faker-js/faker"
 Today = TimeLine -index.js, message(conversation) 
 img-data-message got failed psb by faker wrong
 npm i emoji-mart for download emoji mart
+
+git add .
+git commit -m "Your commit message"
+git push
