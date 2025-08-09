@@ -1,6 +1,10 @@
 import { Stack, Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import { LinkSimple, PaperPlaneTilt, Smiley } from 'phosphor-react';
 import { styled, useTheme } from '@mui/material/styles';
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
+
+
 const Footer = () => {
 
     const StyledInput = styled(TextField)(({ theme }) => ({
@@ -9,6 +13,26 @@ const Footer = () => {
             paddingBottom: "12px",
         }
     }));
+
+    const ChatInput = () => {
+        return (
+            <StyledInput fullWidth placeholder='Write a message...' variant='filled' InputProps={{
+                disableUnderline: true,
+                startAdornment: (
+                    <InputAdornment position='start'>
+                        <IconButton>
+                            <LinkSimple />
+                        </IconButton>
+                    </InputAdornment>),
+                endAdornment: (
+                    <InputAdornment position='end'>
+                        <IconButton>
+                            <Smiley />
+                        </IconButton>
+                    </InputAdornment>),
+            }} />
+        )
+    }
 
 
     const theme = useTheme();
@@ -20,21 +44,12 @@ const Footer = () => {
                 boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)"
             }}>
             <Stack direction="row" alignItems={"center"} spacing={3}>
-                <StyledInput fullWidth placeholder='Write a message...' variant='filled' InputProps={{
-                    disableUnderline: true,
-                    startAdornment: (
-                        <InputAdornment position='start'>
-                            <IconButton>
-                                <LinkSimple />
-                            </IconButton>
-                        </InputAdornment>),
-                    endAdornment: (
-                        <InputAdornment position='end'>
-                            <IconButton>
-                                <Smiley />
-                            </IconButton>
-                        </InputAdornment>),
-                }} />
+                <Stack>
+
+                    <Picker theme={theme.palette.mode} data={data} onEmojiSelect={console.log} />
+                    <ChatInput />
+                </Stack>
+
                 <Box sx={{ height: 48, width: 48, backgroundColor: theme.palette.primary.main, borderRadius: 1.5 }}>
                     <Stack sx={{ height: "100%", width: "100%" }} alignItems="center" justifyContent="center">
 

@@ -4,3 +4,4 @@ i dont want to use import {faker} from "@faker-js/faker"
 ... is there anything such as that for me change
 Today = TimeLine -index.js, message(conversation) 
 img-data-message got failed psb by faker wrong
+npm i emoji-mart for download emoji mart
