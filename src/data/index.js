@@ -33,6 +33,37 @@ const randomTime = () =>
   `${Math.floor(Math.random() * 12 + 1)}:${String(Math.floor(Math.random() * 60)).padStart(2, "0")}`;
 
 // --- Static Menus --- //
+const CallLogs = Array.from({ length: 5 }).map((_, id) => {
+  const name = randomName();
+  const incoming = Math.random() > 0.5;
+  const missed = incoming ? Math.random() > 0.2 : false; // 20% chance missed if incoming
+  const callType = missed ? "missed" : incoming ? "incoming" : "outgoing";
+
+
+  return {
+    id: id + 1,
+    img: randomAvatarUrl(name),
+    name,
+    time: randomTime(),
+    callType,
+    duration: missed ? "0:00" : `${Math.floor(Math.random() * 10)}:${String(Math.floor(Math.random() * 60)).padStart(2, "0")}`,
+    date: new Date(Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000)).toLocaleDateString(),
+    missed,
+    incoming,
+
+  };
+});
+
+const MemberList = Array.from({ length: 5 }).map((_, id) => {
+  const name = randomName();
+  const online = Math.random() < 0.5;
+  return {
+    id: id + 1,
+    img: randomAvatarUrl(name),
+    name,
+    online,
+  };
+});
 const Profile_Menu = [
   { title: "Profile", icon: <User /> },
   { title: "Settings", icon: <Gear /> },
@@ -107,6 +138,38 @@ const Message_options = [
   { title: "Delete Message" },
 ];
 
+const SHARED_LINKS = [
+  {
+    type: "msg",
+    subtype: "link",
+    preview: randomImage("200/150"),
+    message: "First shared link",
+    incoming: true,
+    outgoing: false,
+  },
+  {
+    type: "msg",
+    subtype: "link",
+    preview: randomImage("200/150"),
+    message: "Second shared link",
+    incoming: true,
+    outgoing: false,
+  },
+  // Add more as needed
+];
+
+const SHARED_DOCS = [
+  {
+    type: "msg",
+    subtype: "doc",
+    preview: randomImage("200/150"),
+    message: "First shared document",
+    incoming: true,
+    outgoing: false,
+  },
+  // Add more as needed
+];
+
 export {
   Profile_Menu,
   Nav_Setting,
@@ -114,4 +177,8 @@ export {
   ChatList,
   Chat_History,
   Message_options,
+  SHARED_LINKS,
+  SHARED_DOCS,
+  CallLogs,
+  MemberList,
 };

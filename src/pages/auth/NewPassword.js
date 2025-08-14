@@ -1,0 +1,28 @@
+import { Link, Stack, Typography } from '@mui/material'
+import { CaretLeft } from 'phosphor-react'
+import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
+import NewPasswordForm from '../../sections/settings/auth/NewPasswordForm'
+
+const NewPassword = () => {
+    return (
+        <>
+            <Stack>
+                <Typography variant='h3' paragraph>
+                    Reset Password
+                </Typography>
+                <Typography sx={{ color: "text.secondary", mb: 5 }}>
+                    Please set your new password
+                </Typography>
+            </Stack>
+
+            <NewPasswordForm />
+            <Link component={RouterLink} to="/auth/login" color="inherit" variant='subtitle2' sx={{ mt: 3, mx: "auto", alignItems: "center", display: "inline-flex" }}>
+                <CaretLeft />
+                Return to sign in
+            </Link>
+        </>
+    )
+}
+
+export default NewPassword

@@ -1,14 +1,56 @@
 
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, Divider, IconButton, Stack } from "@mui/material";
+import { Avatar, Box, Divider, IconButton, Menu, MenuItem, Stack } from "@mui/material";
 import Logo from "../../assets/Images/logo.ico";
-import { Nav_Buttons } from "../../data";
+import { Nav_Buttons, Profile_Menu } from "../../data";
 import React, { useState } from 'react'
 import { Gear } from "phosphor-react";
 import useSettings from '../../hooks/useSettings';
 import AntSwitch from '../../components/AntSwitch';
+import { useNavigate } from 'react-router-dom';
+
+const getPath = (index) => {
+    switch (index) {
+        case 0:
+            return "/app";
+        case 1:
+            return "/group";
+        case 2:
+            return "/call";
+        case 3:
+            return "/settings";
+        default:
+            break;
+    }
+}
+const getMenuPath = (index) => {
+    switch (index) {
+        case 0:
+            return "/profile";
+        case 1:
+            return "/settings";
+        case 2:
+            return "/auth/login";
+
+        default:
+            break;
+    }
+}
+
+
 
 const SideBar = () => {
+    const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+
+
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const [selected, setSelected] = useState(0);
     const theme = useTheme();
     const { onToggleMode } = useSettings();
@@ -69,6 +111,7 @@ const SideBar = () => {
                                     key={el.index}
                                     onClick={() => {
                                         setSelected(el.index);
+                                        navigate(getPath(el.index));
                                     }}
                                     sx={{ width: "max-content", color: "#000" }}
 
@@ -93,6 +136,7 @@ const SideBar = () => {
                         ) : (
                             <IconButton
                                 onClick={() => {
+                                    navigate(getPath(3));
                                     setSelected(3);
                                 }}
                                 sx={{ width: "max-content", color: theme.palette.mode === "light" ? "#000" : theme.palette.text.primary }}
@@ -107,13 +151,52 @@ const SideBar = () => {
                     <AntSwitch onChange={() => {
                         onToggleMode();
                     }} defaultChecked />
-                    <Avatar
+                    <Avatar id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
                         src={`https://i.pravatar.cc/150?u=${Math.random()}`}
                         onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "/fallback-avatar.png";
                         }}
                     />
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            list: {
+                                'aria-labelledby': 'basic-button',
+                            },
+                        }}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "right"
+                        }}
+                        transformOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                        }}
+                    >
+                        <Stack spacing={1} px={1}>
+                            {Profile_Menu.map((el, index) => (
+                                <MenuItem key={el.title} onClick={() => {
+                                    handleClose();
+
+                                }}>
+                                    <Stack onClick={() => {
+
+                                        navigate(getMenuPath(index));
+                                    }}
+                                        sx={{ width: 100 }} direction="row" alignItems={"center"} justifyContent="space-between">
+                                        <span>{el.title}</span>
+                                        {el.icon}
+                                    </Stack>{""}</MenuItem>))}
+                        </Stack>
+                    </Menu>
                 </Stack>
             </Stack>
         </Box>

@@ -9,3 +9,39 @@ npm i emoji-mart for download emoji mart
 git add .
 git commit -m "Your commit message"
 git push
+
+redux_store.js_  npm install react-redux @reduxjs/toolkit --legacy-peer-deps
+
+key={el.title} in SideBar
+key={index} in footer
+key={el.title} in MsgTypes
+
++ React dev tools extension
+
+<Avatar
+src={`https://i.pravatar.cc/150?u=${Math.random()}`}
+alt={`user-${Math.floor(Math.random() * 1000)}`}
+sx={{ height: 64, width: 64 }}
+/> instead of faker
+
+
+img random {`https://picsum.photos/100/100?random=${Math.floor(Math.random() * 1000)}`}
+
+key={`link-${index}`} in SharedMessages.js
+key={`doc-${index}`} in SharedMessages.js
+
+<Avatar src={`https://i.pravatar.cc/150?u=${Math.random()}`}
+alt={`user-${Math.floor(Math.random() * 1000)}`} /> Settings.js
+
+
+(npm install yup --legacy-peer-deps)
+
+npm install react-hook-form --legacy-peer-deps
+npm install yup @hookform/resolvers --legacy-peer-deps
+
+warning - isSubmitting, isSubmitSuccessful LoginForm.js
+isSubmitting, isSubmitSuccessful ResetPasswordForm.js
+
+(dashboard index)
+const isAuthenticated = false; (if it is true, you can access app
+by change path in dashboard and dont need to login)

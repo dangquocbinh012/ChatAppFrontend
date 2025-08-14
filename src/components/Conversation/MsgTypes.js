@@ -1,10 +1,11 @@
 
 import { useTheme } from '@mui/material/styles';
-import { Box, Divider, Stack, Typography, Link, IconButton } from '@mui/material';
+import { Box, Divider, Stack, Typography, Link, IconButton, Menu, MenuItem } from '@mui/material';
 import React from 'react'
-import { DownloadSimple, Image } from 'phosphor-react';
+import { DotsThreeVertical, DownloadSimple, Image } from 'phosphor-react';
+import { Message_options } from '../../data';
 
-const DocMsg = ({ el }) => {
+const DocMsg = ({ el, menu }) => {
     const theme = useTheme();
     return (
         <Stack direction="row"
@@ -39,11 +40,12 @@ const DocMsg = ({ el }) => {
                         sx={{ color: el.incoming ? theme.palette.text : "#fff" }}>{el.message}</Typography>
                 </Stack>
             </Box>
+            {menu && <MessageOptions />}
         </Stack>
     )
 }
 
-const LinkMsg = ({ el }) => {
+const LinkMsg = ({ el, menu }) => {
     const theme = useTheme();
     return (
         <Stack direction="row"
@@ -78,12 +80,13 @@ const LinkMsg = ({ el }) => {
                 </Stack>
 
             </Box>
+            {menu && <MessageOptions />}
         </Stack>
     )
 }
 
 
-const ReplyMsg = ({ el }) => {
+const ReplyMsg = ({ el, menu }) => {
     const theme = useTheme();
     return (
         <Stack direction="row"
@@ -115,6 +118,7 @@ const ReplyMsg = ({ el }) => {
                     </Typography>
                 </Stack>
             </Box>
+            {menu && <MessageOptions />}
         </Stack>
     )
 }
@@ -122,7 +126,7 @@ const ReplyMsg = ({ el }) => {
 
 
 
-const MediaMsg = ({ el }) => {
+const MediaMsg = ({ el, menu }) => {
     const theme = useTheme();
     return (
         <Stack direction="row"
@@ -140,17 +144,15 @@ const MediaMsg = ({ el }) => {
                     <Typography variant='body2' color={el.incoming ? theme.palette.text : "#fff"}>
                         {el.message}</Typography>
                 </Stack>
-
-
             </Box>
-
+            {menu && <MessageOptions />}
         </Stack>
     )
 }
 
 
 
-const TextMsg = ({ el }) => {
+const TextMsg = ({ el, menu }) => {
     const theme = useTheme();
     return (
         <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
@@ -171,6 +173,7 @@ const TextMsg = ({ el }) => {
 
 
             </Box>
+            {menu && <MessageOptions />}
         </Stack>
     )
 }
@@ -187,6 +190,48 @@ const TimeLine = ({ el }) => {
         <Divider width="46%" />
     </Stack>
 };
+
+const MessageOptions = () => {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    return (
+
+        <>
+            <DotsThreeVertical id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick} size={20} />
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                slotProps={{
+                    list: {
+                        'aria-labelledby': 'basic-button',
+                    },
+                }}
+            >
+                <Stack spacing={1} px={1}>
+                    {Message_options.map((el) => (
+                        <MenuItem
+                            key={el.title}
+                            onClick={handleClick}> {el.title}</MenuItem>))}
+                </Stack>
+            </Menu>
+
+
+
+        </>
+    )
+}
 
 export { TimeLine, TextMsg, MediaMsg, ReplyMsg, LinkMsg, DocMsg };
 
