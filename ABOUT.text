@@ -9,6 +9,7 @@ npm i emoji-mart for download emoji mart
 git add .
 git commit -m "Your commit message"
 git push
+git push origin HEAD:master
 
 redux_store.js_  npm install react-redux @reduxjs/toolkit --legacy-peer-deps
 
